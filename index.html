@@ -74,7 +74,8 @@
 
     <script>
         // Replace with your actual Telegram channel username (without @)
-        const ALLOWED_CHANNEL = "grade9_biology"; // Matches your debug output
+        const ALLOWED_CHANNEL = "grade9_biology";
+        const DEBUG_MODE = false; // Set to true for local testing, false for production
 
         // Biology lesson topics
         const topics = {
@@ -148,28 +149,26 @@ What does it mean to be “alive”?
                     startParam: topicKey
                 };
 
-                // Updated authorization logic: Allow if launched from a channel
+                // Authorization logic
                 const chat = initData?.chat;
-                if (chat && chat.type === "channel") {
-                    isAuthorized = true; // Assume authorized if from a channel
-                    if (chat.username !== `@${ALLOWED_CHANNEL}`) {
-                        debugInfo.warning = `Username mismatch. Expected: @${ALLOWED_CHANNEL}, Got: ${chat.username || 'none'}`;
-                    }
+                if (DEBUG_MODE || (chat && chat.type === "channel" && chat.username === `@${ALLOWED_CHANNEL}`)) {
+                    isAuthorized = true;
+                } else if (chat && chat.type !== "channel") {
+                    debugInfo.error = `Not launched from a channel. chatType: ${chat.type || 'none'}`;
                 } else {
-                    debugInfo.error = `Not launched from a channel. chatType: ${chat?.type || 'none'}`;
+                    debugInfo.error = `Channel mismatch. Expected: @${ALLOWED_CHANNEL}, Got: ${chat?.username || 'none'}`;
                 }
 
                 Telegram.WebApp.setBackgroundColor('#1e1e2d');
                 Telegram.WebApp.setHeaderColor('#1e1e2d');
             }
 
-            // Fallback for browser testing (remove in production)
+            // Fallback for browser testing
             if (!topicKey) {
                 const urlParams = new URLSearchParams(window.location.search);
                 topicKey = urlParams.get("startapp");
                 debugInfo.urlParams = topicKey;
-                // Simulate channel for testing (comment out in production)
-                // isAuthorized = true;
+                if (DEBUG_MODE) isAuthorized = true; // Allow testing in browser
             }
 
             updateContent(topicKey, isAuthorized, debugInfo);
