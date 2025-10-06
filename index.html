@@ -149,16 +149,15 @@ What does it mean to be “alive”?
                     startParam: topicKey
                 };
 
-                // Authorization logic
-                const chat = initData?.chat;
-                if (DEBUG_MODE || (chat && chat.type === "channel" && chat.username === `@${ALLOWED_CHANNEL}`)) {
+                // Authorization logic: Allow if start_param is present, warn if not from channel
+                if (topicKey && (DEBUG_MODE || (initData?.chat?.type === "channel" && initData?.chat?.username === `@${ALLOWED_CHANNEL}`))) {
                     isAuthorized = true;
-                } else if (chat && chat.type !== "channel") {
-                    debugInfo.error = `Not launched from a channel. chatType: ${chat.type || 'none'}`;
-                } else {
-                    debugInfo.error = `Channel mismatch. Expected: @${ALLOWED_CHANNEL}, Got: ${chat?.username || 'none'}`;
+                    if (initData?.chat?.type !== "channel") {
+                        debugInfo.warning = `Launched with start_param but not from a channel. chatType: ${initData?.chat?.type || 'none'}`;
+                    }
+                } else if (initData?.chat) {
+                    debugInfo.error = `Not authorized. Expected channel @${ALLOWED_CHANNEL}, Got chatType: ${initData?.chat?.type || 'none'}, username: ${initData?.chat?.username || 'none'}`;
                 }
-
                 Telegram.WebApp.setBackgroundColor('#1e1e2d');
                 Telegram.WebApp.setHeaderColor('#1e1e2d');
             }
