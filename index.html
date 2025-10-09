@@ -1,189 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Simple Telegram Mini App Example</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            background-color: #1e1e2d; /* Telegram-style dark theme */
-            color: #fff;
-            font-family: sans-serif;
-            margin: 0;
-            padding: 20px;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        ::selection { background: none; }
-        html, body { height: 100%; }
-        h1 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #55acee; /* Telegram blue accent */
-            text-align: center;
-        }
-        p {
-            white-space: pre-wrap;
-            line-height: 1.6;
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-        #content-wrapper {
-            max-width: 100%;
-            padding: 0;
-            margin: 0;
-        }
-        .error {
-            color: #ff5555;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-        #debug {
-            color: #888;
-            font-size: 0.8rem;
-            margin-top: 20px;
-            border: 1px solid #444;
-            padding: 10px;
-            border-radius: 4px;
-            display: none; /* Hidden by default */
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        button {
-            background: #55acee;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin: 10px;
-        }
-        button:hover {
-            background: #4a9bd4;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 9 Biology Mini App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Telegram Dark Style */
+    body {
+      background-color: #1e1e2d; /* Telegram-style dark */
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    ::selection {
+      background: none;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #55acee; /* Highlight for title */
+    }
+
+    p {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      margin-top: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    #content-wrapper {
+      max-width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    @media screen {
+      body:after {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0);
+        z-index: 9999;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="content-wrapper">
-        <h1 id="title">Initializing...</h1>
-        <p id="content">Waiting for Telegram Web App data...</p>
-        <button id="action-btn" style="display: none;">Take Action</button>
-        <div id="debug"></div>
-    </div>
+  <div id="content-wrapper">
+    <h1 id="title">Initializing...</h1>
+    <p id="content">Waiting for Telegram Web App data...</p>
+  </div>
 
-    <script>
-        // Replace with your actual Telegram channel username (without @) for access control
-        const ALLOWED_CHANNEL = "grade9_biology"; // e.g., your bot's channel
-        const DEBUG_MODE = true; // Set to false for production; true for local/Chrome testing
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-        // Sample content topics (similar to your biology lessons)
-        const topics = {
-            "topic1": {
-                title: "Sample Topic 1: Introduction to Mini Apps",
-                content: `This is a simple Telegram Mini App example.
-ይህ ቀላል ቴሌግራም ሚኒ አፕ ምሳሌ ነው።
-What is a Mini App? It's a web app inside Telegram!
-ሚኒ አፕ ምንድን ነው? በቴሌግራም ውስጥ የድር አፕ ነው!
-Click the button below for more interaction.`
-            },
-            "topic2": {
-                title: "Sample Topic 2: Handling Parameters",
-                content: `Mini Apps receive data via start_param.
-ሚኒ አፕዎች start_param በኩል ውሂብ ይቀበላሉ።
-Your param: <span id="param-display"></span>
-English and Amharic support for global reach!`
-            }
-            // Add more topics as needed, e.g., "topic3": { ... }
-        };
+  <script>
+    // Biology lesson topics for each deep link
+    const topics = {
+      "ab1": {
+        title: "Unit 1: Introduction to Biology – 1.1 The Meaning and Importance of Biology",
+        content: `Biology is the scientific study of life or living things.
+ባዮሎጂ ህይወት ወይም የህይወት ያላቸው ነገሮች ሳይንሳዊ ጥናት ነው።
+What does it mean to be “alive”?
+"ህይወት ያለው" መሆን ማለት ምን ማለት ነው?
+It seems very difficult to objectively define life in a simple sentence. But, we recognize life mainly by common characteristics shared by living systems.
+ህይወትን በአንድ ቀላል ዓረፍተ ነገር ብቻ መግለፅ በጣም ከባድ ይመስላል። ነገር ግን፣ ህይወትን የምንለየው በዋነኝነት ህይወት ባላቸው ስርዓቶች (living systems) በጋራ በሚታዩ ባህሪያት ነው።
+Living things:
+(ህይወት ያላቸው ነገሮች የሚከተሉት ባህሪያት አሏቸው):
+
+are composed of one or more cells
+
+o
+በአንድ ወይም ከአንድ በላይ በሆኑ ህዋሳት (cells) የተሠሩ ናቸው።
+o
+
+are complex and highly ordered
+
+o
+ውስብስብ እና ከፍተኛ የሆነ ቅደም ተከተል ያላቸው ናቸው።
+o
+
+can respond to stimuli, grow, reproduce, etc.
+
+o
+ለአካባቢ ለውጦች (stimuli) ምላሽ መስጠት፣ ማደግ፣ መራባት (reproduce) እና የመሳሰሉትን ማድረግ ይችላሉ።
+o
+
+transmit genetic information to their offspring
+
+o
+የዘር መረጃን (genetic information) ወደ ልጆቻቸው ያስተላልፋሉ።
+o
+
+need the energy to accomplish work
+
+o
+ሥራ ለማከናወን ኃይል (energy) ያስፈልጋቸዋል።
+o
+
+can maintain relatively constant internal conditions (homeostasis)
+
+o
+ውስጣዊ ሁኔታቸውን በአንፃራዊነት ቋሚ አድርገው ማቆየት ይችላሉ (ሆሞስታሲስ - homeostasis)።
+o
+
+are capable of evolutionary adaptation to the environment .etc.
+
+o
+ለአካባቢያቸው የዝግመተ ለውጥ (evolutionary) መላመድ የመቻል ችሎታ አላቸው።
+o
+`
+      },
+      "ab2": {
+        title: "Unit 1: Introduction to Biology – 1.2 The Methods of Studying Biology",
+        content: `What is a scientific study?
 
-        // Function to update page content (mirrors your updateContent)
-        function updateContent(topicKey, isAuthorized, debugInfo) {
-            const titleElement = document.getElementById("title");
-            const contentElement = document.getElementById("content");
-            const debugElement = document.getElementById("debug");
-            const actionBtn = document.getElementById("action-btn");
-            const paramDisplay = document.getElementById("param-display");
+(ሳይንሳዊ ጥናት ማለት ምን ማለት ነው?)
+Biologists study about living things using a scientific method that involves asking questions, suggesting possible answers; and testing for the validity of the answers through experimentation. This scientific
+ባዮሎጂስቶች ስለ ህይወት ያላቸው ነገሮች የሚያጠኑት ሳይንሳዊ ስነ-ዘዴን (scientific method) በመጠቀም ሲሆን፣ ይህ ስነ-ዘዴ ጥያቄዎችን መጠየቅ፣ ሊሆኑ የሚችሉ መልሶችን መጠቆም እና መልሶቹ ትክክል መሆናቸውን በሙከራ (experimentation) ማረጋገጥን ያካትታል። ይህ ሳይንሳዊ... (አረፍተ ነገሩ ያልተጠናቀቀ ነው፤ የሚቀጥለው ክፍል ግን የሳይንሳዊ ስነ-ዘዴን የሚገልጽ ነው።)
+ይህ የጥናት ክፍል በአማርኛ ማብራሪያ ተሰጥቶታል።`
+      },
+      "ab3": {
+        title: "Unit 1: Introduction to Biology – 1.3 The Branches of Biology",
+        content: `What comes to your mind when you hear the word science?
 
-            // Show debug info if in debug mode
-            if (DEBUG_MODE) {
-                debugElement.style.display = "block";
-                debugElement.textContent = `Debug: ${JSON.stringify(debugInfo, null, 2)}`;
-            }
+"ሳይንስ" የሚለውን ቃል ሲሰሙ ወደ አእምሮዎ የሚመጣው ምንድን ነው?
+Biologists are always curious about why things happen or how things happen. By asking questions and seeking science-based responses known as the scientific method, they come up with new theories to explain new findings.
+የባዮሎጂ ባለሙያዎች (Biologists) ነገሮች ለምን እንደሚሆኑ ወይም እንዴት እንደሚከሰቱ ሁል ጊዜ ጉጉት አላቸው። ሳይንሳዊ ስነ-ዘዴ (the scientific method) በመባል የሚታወቀውን፣ ጥያቄዎችን በመጠየቅ እና በሳይንስ ላይ የተመሠረተ ምላሽ በመፈለግ አዲስ ግኝቶችን (new findings) ለማስረዳት አዲስ ቲዎሪዎችን (theories) ይፈጥራሉ።
+The scientific method involves a series of steps that guide scientists through such scientific investigations.
+ሳይንሳዊ ስነ-ዘዴ ሳይንቲስቶችን በእንደዚህ ዓይነት ሳይንሳዊ ምርመራዎች (scientific investigations) የሚመሩ ተከታታይ ደረጃዎችን (a series of steps) ያካትታል።
+Biologists study the living world by posing questions about it.
+ባዮሎጂስቶች ስለ ህይወት ዓለም ጥያቄዎችን በማንሳት ያጠኑታል።
+The general steps of the Scientific methods are:
+(የሳይንሳዊ ስነ-ዘዴ አጠቃላይ ደረጃዎች የሚከተሉት ናቸው)፡
 
-            if (!isAuthorized && !DEBUG_MODE) {
-                titleElement.textContent = "Access Denied";
-                contentElement.innerHTML = `Access this via our official channel: <a href="https://t.me/${ALLOWED_CHANNEL}" style="color: #55acee;">@${ALLOWED_CHANNEL}</a>`;
-                return;
-            }
+Observation (ምልከታ)
+The scientific study begins with careful observations (often a problem to solve) that leads to a question. The observations can be made either directly (e.g. using your sense organs) or indirectly using scientific tools such as microscopes.
+ሳይንሳዊ ጥናት የሚጀምረው በጥንቃቄ በተደረገ ምልከታ (observations) ነው (ብዙውን ጊዜ ለመፍታት የሚፈለግ ችግር) ይህም ወደ ጥያቄ ያመራል። ምልከታዎቹ በቀጥታ (ለምሳሌ ስሜት 
+ህዋሳትን (sense organs) በመጠቀም) ወይም እንደ ማይክሮስኮፕ (microscopes) ያሉ ሳይንሳዊ መሳሪያዎችን በመጠቀም በተዘዋዋሪ መንገድ ሊደረጉ ይችላሉ።
 
-            const topic = topics[topicKey] || topics["topic1"]; // Fallback to first topic
-            titleElement.textContent = topic.title;
-            contentElement.innerHTML = topic.content.replace("<span id=\"param-display\"></span>", topicKey || "No param");
-            paramDisplay ? paramDisplay.textContent = topicKey || "None" : null;
+Asking Questions (ጥያቄዎችን መጠየቅ)
+The observations usually lead the scientist to ask questions (inquiry).
+ምልከታዎቹ ብዙውን ጊዜ ሳይንቲስቱን ጥያቄዎችን እንዲጠይቅ (inquiry) ይመሩታል።
 
-            // Show action button for interaction (e.g., send message back to bot)
-            actionBtn.style.display = "block";
-            actionBtn.onclick = () => {
-                if (window.Telegram?.WebApp) {
-                    Telegram.WebApp.showAlert(`Action taken for topic: ${topicKey}!`);
-                    // Optional: Send data back to bot via cloud storage or HapticFeedback
-                    Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                }
-            };
-        }
+Forming of a hypothesis (መላምት ማዘጋጀት)
+A hypothesis is proposed scientific explanations (possible answers) for a set of question (s). To solve a problem, one can propose several hypotheses. Scientific hypotheses should be testable.
+መላምት (Hypothesis) ለአንድ ወይም ለብዙ ጥያቄዎች የቀረበ ሳይንሳዊ ማብራሪያ (ሊሆን የሚችል መልስ) ነው። አንድን ችግር ለመፍታት፣ ብዙ መላምቶችን ማቅረብ ይቻላል። ሳይንሳዊ መላምቶች ሊሞከሩ የሚችሉ (testable) መሆን አለባቸው።
 
-        // Initialization (adapted from official Telegram docs)
-        document.addEventListener('DOMContentLoaded', () => {
-            let topicKey = null;
-            let isAuthorized = false;
-            let debugInfo = { message: "No Telegram WebApp data available" };
+Testing the hypothesis (መላምቱን መፈተሽ)
+Hypothesis can be tested through experimentation. Any scientific experiment must have the ability to be duplicated because the “answer” the scientist comes up with (whether it supports or rejects the original hypothesis) can’t become part of the scientific knowledge unless other scientists can perform the same experiment and achieve the similar results.
+መላምት በሙከራ (experimentation) አማካኝነት ሊፈተን ይችላል። ማንኛውም ሳይንሳዊ ሙከራ ሊደገም የሚችል (ability to be duplicated) መሆን አለበት። ምክንያቱም ሳይንቲስቱ ያገኘው "መልስ" (የመጀመሪያውን መላምት ይደግፍም ይሁን ይሽር) ሌሎች ሳይንቲስቶች ተመሳሳይ ሙከራ አድርገው ተመሳሳይ ውጤት ካላገኙ በስተቀር የሳይንሳዊ እውቀት (scientific knowledge) አካል ሊሆን አይችልም።
+If a hypothesis is not supported by experimental data, one can propose a new hypothesis.
+አንድ መላምት በሙከራ መረጃ (experimental data) ካልተደገፈ፣ አዲስ መላምት ማቅረብ ይቻላል።`
+      }
+    };
 
-            if (window.Telegram && window.Telegram.WebApp) {
-                Telegram.WebApp.ready(); // Signal app is ready
-                Telegram.WebApp.expand(); // Full-screen mode
+    // Function to update page content
+    function updateContent(topicKey) {
+      const titleElement = document.getElementById("title");
+      const contentElement = document.getElementById("content");
+      const topic = topics[topicKey];
 
-                const initData = Telegram.WebApp.initDataUnsafe;
-                topicKey = initData?.start_param; // Get topic from launch param
-                debugInfo = {
-                    initData: initData,
-                    user: initData?.user,
-                    chat: initData?.chat,
-                    chatType: initData?.chat?.type,
-                    startParam: topicKey
-                };
+      if (topic) {
+        titleElement.textContent = topic.title;
+        contentElement.textContent = topic.content;
+      } else {
+        titleElement.textContent = "Welcome to Grade 9 Biology tutorials – stay with us!";
+        contentElement.textContent = "";
+      }
+    }
 
-                // Authorization: Check if launched from allowed channel (basic check)
-                if (topicKey && (initData?.chat?.type === "channel" || DEBUG_MODE)) {
-                    isAuthorized = true;
-                    if (initData?.chat?.username !== ALLOWED_CHANNEL) {
-                        debugInfo.warning = `Launched from non-allowed channel: ${initData?.chat?.username}`;
-                    }
-                } else {
-                    debugInfo.error = "Missing start_param or invalid launch context.";
-                }
+    // Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      let topicKey = null;
 
-                // Set Telegram theme colors
-                Telegram.WebApp.setBackgroundColor('#1e1e2d');
-                Telegram.WebApp.setHeaderColor('#1e1e2d');
-            }
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.ready();
+        // --- Channel Access Check ---
+const allowedChannel = "@grade9_biology"; // <-- Replace with your real channel username
 
-            // Fallback for browser/Chrome testing (e.g., open in Chrome with ?startapp=topic1)
-            if (!topicKey) {
-                const urlParams = new URLSearchParams(window.location.search);
-                topicKey = urlParams.get("startapp");
-                debugInfo.urlParams = topicKey;
-                if (DEBUG_MODE) isAuthorized = true;
-            }
+// Check if user opened via your channel (Telegram passes chat info)
+if (Telegram.WebApp.initDataUnsafe?.chat?.username !== allowedChannel.replace("@", "")) {
+  document.body.innerHTML = `
+    <div style="text-align:center; padding:50px; color:#fff;">
+      <h2 style="color:#ff4c4c;">Access Denied 🚫</h2>
+      <p>This Mini App only works when launched from our official Telegram channel: 
+      <strong>${allowedChannel}</strong></p>
+    </div>`;
+  throw new Error("Unauthorized access - wrong channel");
+}
 
-            updateContent(topicKey, isAuthorized, debugInfo);
-        });
-    </script>
+        if (Telegram.WebApp.initDataUnsafe?.start_param) {
+          topicKey = Telegram.WebApp.initDataUnsafe.start_param;
+        }
+
+        Telegram.WebApp.setBackgroundColor('#1e1e2d');
+        Telegram.WebApp.setHeaderColor('#1e1e2d');
+      }
+
+      // Fallback for testing in browser
+      if (!topicKey) {
+        const urlParams = new URLSearchParams(window.location.search);
+        topicKey = urlParams.get("topic");
+      }
+
+      updateContent(topicKey);
+    });
+  </script>
 </body>
 </html>
