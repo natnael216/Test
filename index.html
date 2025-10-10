@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grade 9 Biology Mini App</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Telegram Dark Style */
-    body {
-      background-color: #1e1e2d; /* Telegram-style dark */
-      color: #fff;
-      font-family: sans-serif;
-      margin: 0;
-      padding: 20px;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 9 Biology Mini App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Telegram Dark Style */
+    body {
+      background-color: #1e1e2d; /* Telegram-style dark */
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
 
-    ::selection {
-      background: none;
-    }
+    ::selection {
+      background: none;
+    }
 
-    html, body {
-      height: 100%;
-    }
+    html, body {
+      height: 100%;
+    }
 
-    h1 {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #55acee; /* Highlight for title */
-    }
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #55acee; /* Highlight for title */
+    }
 
-    p {
-      white-space: pre-wrap;
-      line-height: 1.6;
-      margin-top: 20px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-    }
+    p {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      margin-top: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
 
-    #content-wrapper {
-      max-width: 100%;
-      padding: 0;
-      margin: 0;
-    }
+    #content-wrapper {
+      max-width: 100%;
+      padding: 0;
+      margin: 0;
+    }
 
-    @media screen {
-      body:after {
-        content: '';
-        display: block;
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        pointer-events: none;
-        background: rgba(0, 0, 0, 0);
-        z-index: 9999;
-      }
-    }
-  </style>
+    @media screen {
+      body:after {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0);
+        z-index: 9999;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="content-wrapper">
-    <h1 id="title">Initializing...</h1>
-    <p id="content">Waiting for Telegram Web App data...</p>
-  </div>
+  <div id="content-wrapper">
+    <h1 id="title">Initializing...</h1>
+    <p id="content">Waiting for Telegram Web App data...</p>
+  </div>
 
-  <!-- Telegram Web App SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <script>
-    // Biology lesson topics for each deep link
-    const topics = {
-      "ab1": {
-        title: "Unit 1: Introduction to Biology – 1.1 The Meaning and Importance of Biology",
-        content: `Biology is the scientific study of life or living things.
+  <script>
+    // Biology lesson topics for each deep link
+    const topics = {
+      "ab1": {
+        title: "Unit 1: Introduction to Biology – 1.1 The Meaning and Importance of Biology",
+        content: `Biology is the scientific study of life or living things.
 ባዮሎጂ ህይወት ወይም የህይወት ያላቸው ነገሮች ሳይንሳዊ ጥናት ነው።
 What does it mean to be “alive”?
 "ህይወት ያለው" መሆን ማለት ምን ማለት ነው?
 It seems very difficult to objectively define life in a simple sentence. But, we recognize life mainly by common characteristics shared by living systems.
-ህይወትን በአንድ ቀላል ዓረፍተ ነገር ብቻ መግለፅ በጣም ከባድ ይመስላል። ነገር ግን፣ ህይወትን የምንለየው በዋነኝነት ህይወት ባላቸው ስርዓቶች (living systems) በጋራ በሚታዩ ባህሪያት ነው።
+ህይወትን በአንድ ቀላል ዓረፍተ ነገር ብቻ መግለፅ በጣም ከባድ ይመስላል። ነገር ፍን፣ ህይወትን የምንለየው በዋነኝነት ህይወት ባላቸው ስርዓቶች (living systems) በጋራ በሚታዩ ባህሪያት ነው።
 Living things:
 (ህይወት ያላቸው ነገሮች የሚከተሉት ባህሪያት አሏቸው):
 
@@ -127,19 +127,19 @@ o
 ለአካባቢያቸው የዝግመተ ለውጥ (evolutionary) መላመድ የመቻል ችሎታ አላቸው።
 o
 `
-      },
-      "ab2": {
-        title: "Unit 1: Introduction to Biology – 1.2 The Methods of Studying Biology",
-        content: `What is a scientific study?
+      },
+      "ab2": {
+        title: "Unit 1: Introduction to Biology – 1.2 The Methods of Studying Biology",
+        content: `What is a scientific study?
 
 (ሳይንሳዊ ጥናት ማለት ምን ማለት ነው?)
 Biologists study about living things using a scientific method that involves asking questions, suggesting possible answers; and testing for the validity of the answers through experimentation. This scientific
 ባዮሎጂስቶች ስለ ህይወት ያላቸው ነገሮች የሚያጠኑት ሳይንሳዊ ስነ-ዘዴን (scientific method) በመጠቀም ሲሆን፣ ይህ ስነ-ዘዴ ጥያቄዎችን መጠየቅ፣ ሊሆኑ የሚችሉ መልሶችን መጠቆም እና መልሶቹ ትክክል መሆናቸውን በሙከራ (experimentation) ማረጋገጥን ያካትታል። ይህ ሳይንሳዊ... (አረፍተ ነገሩ ያልተጠናቀቀ ነው፤ የሚቀጥለው ክፍል ግን የሳይንሳዊ ስነ-ዘዴን የሚገልጽ ነው።)
 ይህ የጥናት ክፍል በአማርኛ ማብራሪያ ተሰጥቶታል።`
-      },
-      "ab3": {
-        title: "Unit 1: Introduction to Biology – 1.3 The Branches of Biology",
-        content: `What comes to your mind when you hear the word science?
+      },
+      "ab3": {
+        title: "Unit 1: Introduction to Biology – 1.3 The Branches of Biology",
+        content: `What comes to your mind when you hear the word science?
 
 "ሳይንስ" የሚለውን ቃል ሲሰሙ ወደ አእምሮዎ የሚመጣው ምንድን ነው?
 Biologists are always curious about why things happen or how things happen. By asking questions and seeking science-based responses known as the scientific method, they come up with new theories to explain new findings.
@@ -154,7 +154,7 @@ The general steps of the Scientific methods are:
 Observation (ምልከታ)
 The scientific study begins with careful observations (often a problem to solve) that leads to a question. The observations can be made either directly (e.g. using your sense organs) or indirectly using scientific tools such as microscopes.
 ሳይንሳዊ ጥናት የሚጀምረው በጥንቃቄ በተደረገ ምልከታ (observations) ነው (ብዙውን ጊዜ ለመፍታት የሚፈለግ ችግር) ይህም ወደ ጥያቄ ያመራል። ምልከታዎቹ በቀጥታ (ለምሳሌ ስሜት 
-ህዋሳትን (sense organs) በመጠቀም) ወይም እንደ ማይክሮስኮፕ (microscopes) ያሉ ሳይንሳዊ መሳሪያዎችን በመጠቀም በተዘዋዋሪ መንገድ ሊደረጉ ይችላሉ።
+ህዋሳትን (sense organs) በመጠቀም) ወይም እንደ ማይክሮስኮፕ (microscopes) ያሉ ሳይንሳዊ መሳሪዎችን በመጠቀም በተዘዋዋሪ መንገድ ሊደረጉ ይችላሉ።
 
 Asking Questions (ጥያቄዎችን መጠየቅ)
 The observations usually lead the scientist to ask questions (inquiry).
@@ -169,60 +169,46 @@ Hypothesis can be tested through experimentation. Any scientific experiment must
 መላምት በሙከራ (experimentation) አማካኝነት ሊፈተን ይችላል። ማንኛውም ሳይንሳዊ ሙከራ ሊደገም የሚችል (ability to be duplicated) መሆን አለበት። ምክንያቱም ሳይንቲስቱ ያገኘው "መልስ" (የመጀመሪያውን መላምት ይደግፍም ይሁን ይሽር) ሌሎች ሳይንቲስቶች ተመሳሳይ ሙከራ አድርገው ተመሳሳይ ውጤት ካላገኙ በስተቀር የሳይንሳዊ እውቀት (scientific knowledge) አካል ሊሆን አይችልም።
 If a hypothesis is not supported by experimental data, one can propose a new hypothesis.
 አንድ መላምት በሙከራ መረጃ (experimental data) ካልተደገፈ፣ አዲስ መላምት ማቅረብ ይቻላል።`
-      }
-    };
+      }
+    };
 
-    // Function to update page content
-    function updateContent(topicKey) {
-      const titleElement = document.getElementById("title");
-      const contentElement = document.getElementById("content");
-      const topic = topics[topicKey];
+    // Function to update page content
+    function updateContent(topicKey) {
+      const titleElement = document.getElementById("title");
+      const contentElement = document.getElementById("content");
+      const topic = topics[topicKey];
 
-      if (topic) {
-        titleElement.textContent = topic.title;
-        contentElement.textContent = topic.content;
-      } else {
-        titleElement.textContent = "Welcome to Grade 9 Biology tutorials – stay with us!";
-        contentElement.textContent = "";
-      }
-    }
+      if (topic) {
+        titleElement.textContent = topic.title;
+        contentElement.textContent = topic.content;
+      } else {
+        titleElement.textContent = "Welcome to Grade 9 Biology tutorials – stay with us!";
+        contentElement.textContent = "";
+      }
+    }
 
-    // Initialization
-    document.addEventListener('DOMContentLoaded', () => {
-      let topicKey = null;
+    // Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      let topicKey = null;
 
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.ready();
-        // --- Channel Access Check ---
-const allowedChannel = "@grade9_biology"; // <-- Replace with your real channel username
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.ready();
+        if (Telegram.WebApp.initDataUnsafe?.start_param) {
+          topicKey = Telegram.WebApp.initDataUnsafe.start_param;
+        }
 
-// Check if user opened via your channel (Telegram passes chat info)
-if (Telegram.WebApp.initDataUnsafe?.chat?.username !== allowedChannel.replace("@", "")) {
-  document.body.innerHTML = `
-    <div style="text-align:center; padding:50px; color:#fff;">
-      <h2 style="color:#ff4c4c;">Access Denied 🚫</h2>
-      <p>This Mini App only works when launched from our official Telegram channel: 
-      <strong>${allowedChannel}</strong></p>
-    </div>`;
-  throw new Error("Unauthorized access - wrong channel");
-}
+        Telegram.WebApp.setBackgroundColor('#1e1e2d');
+        Telegram.WebApp.setHeaderColor('#1e1e2d');
+      }
 
-        if (Telegram.WebApp.initDataUnsafe?.start_param) {
-          topicKey = Telegram.WebApp.initDataUnsafe.start_param;
-        }
+      // Fallback for testing in browser
+      if (!topicKey) {
+        const urlParams = new URLSearchParams(window.location.search);
+        topicKey = urlParams.get("topic");
+      }
 
-        Telegram.WebApp.setBackgroundColor('#1e1e2d');
-        Telegram.WebApp.setHeaderColor('#1e1e2d');
-      }
-
-      // Fallback for testing in browser
-      if (!topicKey) {
-        const urlParams = new URLSearchParams(window.location.search);
-        topicKey = urlParams.get("topic");
-      }
-
-      updateContent(topicKey);
-    });
-  </script>
+      updateContent(topicKey);
+    });
+  </script>
 </body>
 </html>
